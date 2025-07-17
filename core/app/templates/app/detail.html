@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ car.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-content h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #00bcd4;
+        }
+
+        .card-content p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00bcd4;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background-color: #0097a7;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="{{ car.image.url }}" alt="{{ car.title }}">
+        <div class="card-content">
+            <h1>{{ car.title }}</h1>
+            <p><strong>Модель:</strong> {{ car.model_car }}</p>
+            <p><strong>Номер:</strong> {{ car.number }}</p>
+            <p><strong>Цена:</strong> {{ car.price }} сом</p>
+            <p><strong>Год выпуска:</strong> {{ car.year }}</p>
+
+            <a class="back-link" href="{% url 'index' %}">← Назад</a>
+        </div>
+    </div>
+</body>
+</html>

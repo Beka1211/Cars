@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авто Каталог</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        accent: '#38bdf8',
+                        card: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-primary text-white font-sans">
+
+    <header class="bg-gradient-to-r from-accent to-blue-700 py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl sm:text-5xl font-bold text-center text-white"> Авто Каталог</h1>
+            <p class="text-center text-blue-100 mt-2">Лучшие предложения по самым выгодным ценам</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-10">
+        {% if cars %}
+            <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {% for car in cars %}
+                    <div class="bg-card rounded-2xl shadow-xl transform hover:scale-105 hover:shadow-2xl transition duration-300">
+                        <a href="{% url 'car_detail' car.id %}">
+                            <img src="{{ car.image.url }}" alt="{{ car.title }}" class="w-full h-48 object-cover rounded-t-2xl">
+                        </a>
+                        <div class="p-5">
+                            <a href="{% url 'car_detail' car.id %}">
+                                <h2 class="text-xl font-bold mb-1 hover:underline text-accent">{{ car.title }}</h2>
+                            </a>
+                            <p class="text-gray-300"><i class="fas fa-car-side mr-2 text-accent"></i>Модель: <span class="text-white">{{ car.model_car }}</span></p>
+                            <p class="text-gray-300"><i class="fas fa-hashtag mr-2 text-accent"></i>Номер: <span class="text-white">{{ car.number }}</span></p>
+                            <p class="text-gray-300"><i class="fas fa-calendar-alt mr-2 text-accent"></i>Год: <span class="text-white">{{ car.year }}</span></p>
+                            <p class="text-xl font-semibold text-accent mt-4">{{ car.price }} сом</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-400 text-lg">Автомобили не найдены. Попробуйте позже.</p>
+        {% endif %}
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-500">
+        &copy; {{ now.year }} Авто Каталог. Все права защищены.
+    </footer>
+
+</body>
+</html>
