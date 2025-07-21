@@ -83,6 +83,10 @@
             <p><strong>Год выпуска:</strong> {{ car.year }}</p>
 
             <a class="back-link" href="{% url 'index' %}">← Назад</a>
+            <a class="back-link" href="{% url 'car_update' car.id %}">Изменить</a>
+            <a class="back-link" href="{% url 'car_delete' car.id %}">Удалить</a>
+
+
         </div>
     </div>
 </body>

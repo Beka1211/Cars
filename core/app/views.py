@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Auto_show, Category
 
 def index_views(request):
@@ -16,7 +16,6 @@ def car_create_view(request):
         category_id = request.POST.get('category_id')
         model_car = request.POST.get('model')
         number = request.POST.get('number')
-
         year = request.POST.get('year')
         price = request.POST.get('price')
         image = request.FILES.get('image')
@@ -38,3 +37,30 @@ def car_create_view(request):
     categories = Category.objects.all()
     return render(request, 'app/user.html', {'categories': categories})
 
+def car_update(request, pk):
+    car = get_object_or_404(Auto_show, pk=pk)
+    categories = Category.objects.all()
+
+    if request.method == 'POST':
+        car.title = request.POST.get('title')
+        car.model_car = request.POST.get('model')
+        car.number = request.POST.get('number')
+        car.year = request.POST.get('year')
+        car.price = request.POST.get('price')
+
+        category_id = request.POST.get('category_id')
+        car.category_id = Category.objects.get(id=category_id)
+
+        if request.FILES.get('image'):
+            car.image = request.FILES['image']
+
+        car.save()
+        return redirect('car_detail', car.id)
+
+    return render(request, 'app/car_update.html', {'car': car, 'categories': categories})
+
+def car_delete(request, pk):
+    auto_shows = get_object_or_404(Auto_show, pk=pk)
+    auto_shows.delete()
+
+    return redirect('index')
