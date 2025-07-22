@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 class Category(models.Model):
     title=models.CharField(max_length=222)
 
@@ -6,8 +8,9 @@ class Category(models.Model):
         return self.title
 
 class Auto_show(models.Model):
-    title=models.CharField(222)
-    model_car=models.CharField(222)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title=models.CharField(max_length=222)
+    model_car=models.CharField(max_length=222)
     number=models.CharField(max_length=8)
     price=models.DecimalField(decimal_places=2,max_digits=12)
     year=models.PositiveSmallIntegerField()

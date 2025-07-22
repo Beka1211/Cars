@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Авто Каталог</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,6 +20,22 @@
         }
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00bcd4;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background-color: #0097a7;
+        }
+    </style>
 </head>
 <body class="bg-primary text-white font-sans">
 
@@ -26,7 +43,15 @@
         <div class="container mx-auto px-4">
             <h1 class="text-3xl sm:text-5xl font-bold text-center text-white"> Авто Каталог</h1>
             <p class="text-center text-blue-100 mt-2">Лучшие предложения по самым выгодным ценам</p>
-            <button onclick="location.href='http://127.0.0.1:8000/car_create/'">добавить обявление</button>
+            <a class="back-link" href="{% url 'car_create' %}">Добавить обявление</a>
+            <a class="back-link" href="{% url 'register' %}"> Регистрация</a>
+            <a class="back-link" href="{% url 'login' %}">Войти</a>
+            <a class="back-link" href="{% url 'logout' %}">Выйти</a>
+            {% if request.user.is_authenticated %}
+                <h1>{{ request.user.username }}</h1>
+            {% else %}
+                <h1>Вам нужно войти в систему</h1>
+            {% endif %}
         </div>
     </header>
 
